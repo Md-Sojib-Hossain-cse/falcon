@@ -1,3 +1,4 @@
+import ProductCard from "../../components/ProductCard/ProductCard";
 import { useGetCategoriesQuery } from "../../redux/api/baseApi";
 
 const Home = () => {
@@ -10,7 +11,11 @@ const Home = () => {
 
   console.log(isLoading, isError, data);
 
-  return <div className="py-8"></div>;
+  return (
+    <div className="py-8">
+      <ProductCard></ProductCard>
+    </div>
+  );
 };
 
 export default Home;

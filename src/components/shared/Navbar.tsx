@@ -5,7 +5,7 @@ import { CiSearch, CiUser } from "react-icons/ci";
 const Navbar = () => {
   return (
     <nav className="bg-[#0F172A] text-white">
-      <div className="flex justify-between items-center w-full max-w-[1440px] mx-auto px-4 py-2 md:px-8 md:py-3 lg:px-20 lg:py-4 gap-6">
+      <div className="flex justify-between items-center w-full max-w-7xl mx-auto px-4 py-2 md:px-8 md:py-3 lg:px-20 lg:py-4 gap-6">
         <div className="flex items-center gap-1 md:w-1/4">
           <img
             src={Logo}
