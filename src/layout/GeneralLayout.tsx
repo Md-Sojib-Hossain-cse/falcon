@@ -1,5 +1,6 @@
 import { Outlet, useLocation } from "react-router";
 import Navbar from "../components/shared/Navbar";
+import NavigationPath from "../components/shared/NavigationPath";
 
 const GeneralLayout = () => {
   const location = useLocation();
@@ -7,6 +8,7 @@ const GeneralLayout = () => {
   return (
     <div className="onest-font">
       <Navbar></Navbar>
+      <NavigationPath></NavigationPath>
       <Outlet></Outlet>
     </div>
   );
