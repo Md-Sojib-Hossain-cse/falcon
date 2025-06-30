@@ -25,11 +25,18 @@ const productSlice = createSlice({
         state.quantity = state.quantity - action.payload;
       }
     },
+    setSize: (state, action) => {
+      state.size = action.payload;
+    },
+    setColor: (state, action) => {
+      state.color = action.payload;
+    },
   },
 });
 
 export const selectProduct = (state: RootState) => state.product;
 
-export const { quantityIncrement, quantityDecrement } = productSlice.actions;
+export const { quantityIncrement, quantityDecrement, setSize, setColor } =
+  productSlice.actions;
 
 export default productSlice.reducer;

@@ -7,12 +7,13 @@ import { CiHeart, CiShare2 } from "react-icons/ci";
 import DemoImgItem from "./ProductCardSubComponents/DemoImgItem";
 import DownArrowSm from "./ProductCardSubComponents/DownArrowSm";
 import SizeOption from "./ProductCardSubComponents/SizeOption";
-import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import {
   quantityDecrement,
   quantityIncrement,
   selectProduct,
+  setColor,
+  setSize,
 } from "../../redux/features/product/product.Slice";
 import PackageImg from "../../assets/package.png";
 import DeliveryOptions from "./ProductCardSubComponents/DeliveryOptions";
@@ -24,7 +25,6 @@ import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
 import RatingsByCategory from "./ProductCardSubComponents/RatingsByCategory";
 
 const ProductCard = () => {
-  const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const product = useAppSelector(selectProduct);
   const dispatch = useAppDispatch();
   return (
@@ -85,10 +85,30 @@ const ProductCard = () => {
                   Blue
                 </h6>
                 <div className="flex gap-4 items-center">
-                  <SampleColorImg imgSrc={SampleColorImgSrc}></SampleColorImg>
-                  <SampleColorImg imgSrc={SampleColorImgSrc}></SampleColorImg>
-                  <SampleColorImg imgSrc={SampleColorImgSrc}></SampleColorImg>
-                  <SampleColorImg imgSrc={SampleColorImgSrc}></SampleColorImg>
+                  <SampleColorImg
+                    onClick={() => dispatch(setColor("white"))}
+                    isSelected={product?.color === "white"}
+                    available={true}
+                    imgSrc={SampleColorImgSrc}
+                  ></SampleColorImg>
+                  <SampleColorImg
+                    onClick={() => dispatch(setColor("black"))}
+                    isSelected={product?.color === "black"}
+                    available={true}
+                    imgSrc={SampleColorImgSrc}
+                  ></SampleColorImg>
+                  <SampleColorImg
+                    onClick={() => dispatch(setColor("cream"))}
+                    isSelected={product?.color === "cream"}
+                    available={true}
+                    imgSrc={SampleColorImgSrc}
+                  ></SampleColorImg>
+                  <SampleColorImg
+                    onClick={() => dispatch(setColor("skyblue"))}
+                    isSelected={product?.color === "skyblue"}
+                    available={false}
+                    imgSrc={SampleColorImgSrc}
+                  ></SampleColorImg>
                 </div>
               </div>
               <div className="space-y-2">
@@ -98,32 +118,32 @@ const ProductCard = () => {
                 <div className="flex gap-3 items-center">
                   <SizeOption
                     size="XL"
-                    onClick={() => setSelectedSize("XL")}
-                    isSelected={selectedSize === "XL"}
+                    onClick={() => dispatch(setSize("XL"))}
+                    isSelected={product?.size === "XL"}
                     available={true}
                   ></SizeOption>
                   <SizeOption
                     size="XS"
-                    onClick={() => setSelectedSize("XS")}
-                    isSelected={selectedSize === "XS"}
+                    onClick={() => dispatch(setSize("XS"))}
+                    isSelected={product?.size === "XS"}
                     available={true}
                   ></SizeOption>
                   <SizeOption
                     size="S"
-                    onClick={() => setSelectedSize("S")}
-                    isSelected={selectedSize === "S"}
+                    onClick={() => dispatch(setSize("S"))}
+                    isSelected={product?.size === "S"}
                     available={true}
                   ></SizeOption>
                   <SizeOption
                     size="M"
-                    onClick={() => setSelectedSize("M")}
-                    isSelected={selectedSize === "M"}
+                    onClick={() => dispatch(setSize("M"))}
+                    isSelected={product?.size === "M"}
                     available={true}
                   ></SizeOption>
                   <SizeOption
                     size="L"
-                    onClick={() => setSelectedSize("L")}
-                    isSelected={selectedSize === "L"}
+                    onClick={() => dispatch(setSize("L"))}
+                    isSelected={product?.size === "L"}
                     available={false}
                   ></SizeOption>
                 </div>

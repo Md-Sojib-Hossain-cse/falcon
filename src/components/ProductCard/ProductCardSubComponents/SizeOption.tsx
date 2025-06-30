@@ -1,14 +1,11 @@
-const SizeOption = ({
-  size,
-  isSelected,
-  available,
-  onClick,
-}: {
+type SizeOption = {
   size: string;
   isSelected: boolean;
   available: boolean;
   onClick?: () => void;
-}) => {
+};
+
+const SizeOption = ({ size, isSelected, available, onClick }: SizeOption) => {
   return (
     <button
       onClick={onClick}
