@@ -21,3 +21,11 @@
             100% 100%,
             0% 100%);
 }
+
+.clip-orange {
+    clip-path: polygon(31% 0, 100% 0, 73% 100%, 0% 100%);
+}
+
+.clip-purple {
+    clip-path: polygon(13% 0, 100% 0%, 87% 100%, 0% 100%);
+}
