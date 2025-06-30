@@ -29,7 +29,12 @@ const Navbar = () => {
           </button>
         </div>
         <div className=" md:w-1/4 flex justify-end items-center gap-2">
-          <IoCartOutline className="h-4 md:h-6 lg:h-8 w-4 md:w-6 lg:w-8" />
+          <div className="relative">
+            <IoCartOutline className="h-4 md:h-6 lg:h-8 w-4 md:w-6 lg:w-8" />
+            <p className="absolute -top-2 -right-2 bg-[#EF4444] h-5 w-5 rounded-full text-white flex justify-center items-center text-[12px]">
+              0
+            </p>
+          </div>
           <CiUser className="h-4 md:h-6 lg:h-8 w-4 md:w-6 lg:w-8" />
         </div>
       </div>

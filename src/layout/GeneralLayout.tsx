@@ -1,7 +1,9 @@
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import Navbar from "../components/shared/Navbar";
 
 const GeneralLayout = () => {
+  const location = useLocation();
+  console.log(location);
   return (
     <div className="onest-font">
       <Navbar></Navbar>

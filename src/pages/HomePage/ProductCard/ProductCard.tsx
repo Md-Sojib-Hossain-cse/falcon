@@ -1,28 +1,29 @@
-import DemoImg from "../../assets/demoCardimg.png";
+import DemoImg from "../../../assets/demoCardimg.png";
 import DownArrow from "./ProductCardSubComponents/DownArrow";
 import Rating from "./ProductCardSubComponents/Rating";
 import SampleColorImg from "./ProductCardSubComponents/SampleColorImg";
-import SampleColorImgSrc from "../../assets/sampleColor.png";
+import SampleColorImgSrc from "../../../assets/sampleColor.png";
 import { CiHeart, CiShare2 } from "react-icons/ci";
 import DemoImgItem from "./ProductCardSubComponents/DemoImgItem";
 import DownArrowSm from "./ProductCardSubComponents/DownArrowSm";
 import SizeOption from "./ProductCardSubComponents/SizeOption";
-import { useAppDispatch, useAppSelector } from "../../redux/hook";
+
+import PackageImg from "../../../assets/package.png";
+import DeliveryOptions from "./ProductCardSubComponents/DeliveryOptions";
+import PackageExpressImg from "../../../assets/packageMoving.png";
+import soldByLogo from "../../../assets/soldByLogo.png";
+import verifiedIcon from "../../../assets/varified.png";
+import risingStarImg from "../../../assets/starObjectImg.png";
+import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
+import RatingsByCategory from "./ProductCardSubComponents/RatingsByCategory";
+import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import {
   quantityDecrement,
   quantityIncrement,
   selectProduct,
   setColor,
   setSize,
-} from "../../redux/features/product/product.Slice";
-import PackageImg from "../../assets/package.png";
-import DeliveryOptions from "./ProductCardSubComponents/DeliveryOptions";
-import PackageExpressImg from "../../assets/packageMoving.png";
-import soldByLogo from "../../assets/soldByLogo.png";
-import verifiedIcon from "../../assets/varified.png";
-import risingStarImg from "../../assets/starObjectImg.png";
-import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
-import RatingsByCategory from "./ProductCardSubComponents/RatingsByCategory";
+} from "../../../redux/features/product/product.Slice";
 
 const ProductCard = () => {
   const product = useAppSelector(selectProduct);
