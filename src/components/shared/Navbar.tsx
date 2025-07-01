@@ -1,6 +1,7 @@
 import { IoCartOutline } from "react-icons/io5";
 import Logo from "../../assets/logo.png";
 import { CiSearch, CiUser } from "react-icons/ci";
+import { Link } from "react-router";
 
 const Navbar = () => {
   return (
@@ -29,12 +30,12 @@ const Navbar = () => {
           </button>
         </div>
         <div className=" md:w-1/4 flex justify-end items-center gap-2">
-          <div className="relative">
+          <Link to="/myCart" className="relative">
             <IoCartOutline className="h-4 md:h-6 lg:h-8 w-4 md:w-6 lg:w-8" />
             <p className="absolute -top-2 -right-2 bg-[#EF4444] h-3  md:h-5 w-3  md:w-5 rounded-full text-white flex justify-center items-center text-[10px] md:text[12px]">
               0
             </p>
-          </div>
+          </Link>
           <CiUser className="h-4 md:h-6 lg:h-8 w-4 md:w-6 lg:w-8" />
         </div>
       </div>

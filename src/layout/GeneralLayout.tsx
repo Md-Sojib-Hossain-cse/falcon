@@ -8,7 +8,9 @@ const GeneralLayout = () => {
     <div className="onest-font">
       <Navbar></Navbar>
       <NavigationPath></NavigationPath>
-      <Outlet></Outlet>
+      <div className="min-h-screen">
+        <Outlet></Outlet>
+      </div>
       <Footer></Footer>
     </div>
   );

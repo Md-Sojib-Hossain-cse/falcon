@@ -122,7 +122,7 @@ const Footer = () => {
           </nav>
         </footer>
       </div>
-      <div className="flex justify-between items-center w-full max-w-[1440px] mx-auto px-4 py-2 md:px-8 md:py-3 lg:px-20 lg:py-4 gap-6 border-b border-b-[#FFFFFF30]">
+      <div className="flex flex-col md:flex-row justify-start md:justify-between items-start md:items-center w-full max-w-[1440px] mx-auto px-4 py-2 md:px-8 md:py-3 lg:px-20 lg:py-4 gap-6 border-b border-b-[#FFFFFF30]">
         <div className="flex items-start gap-4 flex-col lg:flex-row lg:items-center ">
           <h6 className="text-[#E2E8F0] font-medium">Follow us on</h6>
           <div className="flex items-center gap-4">
@@ -144,7 +144,7 @@ const Footer = () => {
           <div className="flex gap-2">
             <PaymentButton imgUrl={VisaImg}></PaymentButton>
             <PaymentButton imgUrl={MasterCardImg}></PaymentButton>
-            <button className="bg-blue-700 rounded-sm h-11 w-16 flex justify-center items-center">
+            <button className="bg-blue-700 rounded-sm h-9 md:h-10 lg:h-11 w-12 md:w-14 lg:w-16 flex justify-center items-center">
               <img src={AmericanExpressImg} alt="payment logo" />
             </button>
             <PaymentButton imgUrl={BkashImg}></PaymentButton>

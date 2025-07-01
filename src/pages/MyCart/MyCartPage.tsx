@@ -1,0 +1,29 @@
+import OrderSummery from "./MyCartComponents/OrderSummery";
+
+const MyCartPage = () => {
+  return (
+    <main className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 lg:gap-6 w-full max-w-[1440px] mx-auto px-4 md:px-8 lg:px-20">
+      <div className="md:col-span-2 bg-white rounded-lg p-4 md:p-5 space-y-4 md:space-y-5">
+        <div className="py-2 md:px-3.5 flex flex-col md:flex-row justify-between h-16 md:h-[68px] border-b border-b-[#D9D9D9]">
+          <div className="flex justify-start items-start relative -top-3">
+            <h2 className="text-[#0F172A] font-semibold text-2xl lg:text-3xl leading-8 md:leading-9 lg:leading-10">
+              My Cart (3)
+            </h2>
+          </div>
+          <div className="flex items-center gap-6 md:gap-7 lg:gap-8">
+            <button className="flex gap-2">
+              <input type="checkbox" name="selectAll" id="selectAll" />
+              <label htmlFor="selectAll" className="text-[#475569]">
+                Select All
+              </label>
+            </button>
+            <button className="text-[#475569]">Clear All</button>
+          </div>
+        </div>
+      </div>
+      <OrderSummery></OrderSummery>
+    </main>
+  );
+};
+
+export default MyCartPage;
