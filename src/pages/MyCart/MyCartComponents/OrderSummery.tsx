@@ -1,6 +1,6 @@
 const OrderSummery = () => {
   return (
-    <div className="space-y-3 md:space-y-4">
+    <div className="space-y-3 md:space-y-4 pb-6">
       <div className="bg-white rounded-lg py-2 md:py-3 px-4 md:px-5 lg:px-6 space-y-3 md:space-y-4">
         <div className="space-y-3 md:space-y-4">
           <h3 className="text-[#475569] font-medium text-xl lg:text-2xl">
