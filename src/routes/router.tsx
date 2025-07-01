@@ -1,7 +1,8 @@
 import { createBrowserRouter } from "react-router";
 import GeneralLayout from "../layout/GeneralLayout";
-import Home from "../pages/HomePage/Home";
 import MyCartPage from "../pages/MyCart/MyCartPage";
+import NotFound from "../pages/NotFound/NotFound";
+import Product from "../pages/HomePage/Product";
 
 const router = createBrowserRouter([
   {
@@ -10,15 +11,19 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home></Home>,
+        element: <Product></Product>,
       },
       {
         path: "/products",
-        element: <Home></Home>,
+        element: <Product></Product>,
       },
       {
         path: "/myCart",
         element: <MyCartPage></MyCartPage>,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },

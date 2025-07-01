@@ -22,7 +22,7 @@ const OrderSummery = () => {
                   <p className="text-[#3B82F6]">To be added</p>
                 </div>
               </div>
-              <form className="flex pb-3">
+              <div className="flex pb-3">
                 <input
                   type="search"
                   name="coupon"
@@ -33,9 +33,9 @@ const OrderSummery = () => {
                 <input
                   type="submit"
                   value="Apply"
-                  className="text-white font-medium bg-[#00B795] rounded-r-sm p-2.5 h-10 w-20"
+                  className="text-white font-medium bg-[#00B795] rounded-r-sm p-2.5 h-10 w-20 transition active:scale-95 duration-100 ease-in-out"
                 ></input>
-              </form>
+              </div>
             </div>
             <div className="flex justify-between">
               <p className="text-[#334155] text-base lg:text-lg font-medium">
@@ -47,7 +47,7 @@ const OrderSummery = () => {
             </div>
           </div>
         </div>
-        <button className="text-white font-medium bg-[#00B795] rounded-sm p-2.5 w-full">
+        <button className="text-white font-medium bg-[#00B795] rounded-sm p-2.5 w-full transition active:scale-95 duration-100 ease-in-out">
           Proceed to Checkout
         </button>
       </div>
