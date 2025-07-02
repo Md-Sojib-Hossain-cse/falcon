@@ -20,7 +20,7 @@ export const baseApi = createApi({
     }),
     getSingleProduct: builder.query({
       query: (slug) => ({
-        url: `/shop/${slug}`,
+        url: `/product/${slug}`,
         method: "GET",
       }),
       providesTags: ["products"],

@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
+import { useAppSelector } from "../../../../redux/hook";
+import { selectProduct } from "../../../../redux/features/product/product.Slice";
 
 const Specification = () => {
   const [seeMore, setSeeMore] = useState(false);
+  const product = useAppSelector(selectProduct);
+
+  const productData = product?.data;
+  console.log(productData);
   return (
     <div className="relative lg:col-span-3 rounded-sm bg-white min-h-80 p-4 md:p-5 lg:p-6 flex flex-col justify-between">
       <div

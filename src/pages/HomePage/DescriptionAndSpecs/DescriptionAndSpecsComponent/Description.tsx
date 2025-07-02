@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
+import { useAppSelector } from "../../../../redux/hook";
+import { selectProduct } from "../../../../redux/features/product/product.Slice";
 
 const Description = () => {
   const [seeMore, setSeeMore] = useState(false);
+  const product = useAppSelector(selectProduct);
+
+  const productData = product?.data;
+
   return (
     <div className="relative lg:col-span-3 rounded-sm bg-white min-h-80 p-4 md:p-5 lg:p-6 flex flex-col justify-between">
       <div
@@ -14,15 +20,7 @@ const Description = () => {
           Description
         </h3>
         <p className="text-[#475569] text-sm md:text-base leading-5 md:leading-6 lg:leading-7">
-          Just as a book is judged by its cover, the first thing you notice when
-          you pick up a modern smartphone is the display. Nothing surprising,
-          because advanced technologies allow you to practically level the
-          display frames and cutouts for the front camera and speaker, leaving
-          no room for bold design solutions. And how good that in such realities
-          Apple everything is fine with displays. Advanced technologies allow
-          you to practically level the display frames and cutouts for the front
-          camera and speaker, leaving no room for bold design solutions. And how
-          good that in such realities Apple everything
+          {productData?.description || "No description available."}
         </p>
 
         <div

@@ -1,42 +1,23 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice } from "@reduxjs/toolkit";
 import type { RootState } from "../../store";
 
-type TProduct = {
-  color: string | null;
-  size: "XXL" | "XL" | "L" | "M" | "S" | "XS" | null;
-  quantity: number;
-};
-
-const initialState: TProduct = {
-  color: null,
-  size: null,
-  quantity: 0,
+const initialState: any = {
+  data: {},
 };
 
 const productSlice = createSlice({
   name: "product",
   initialState,
   reducers: {
-    quantityIncrement: (state, action) => {
-      state.quantity = state.quantity + action.payload;
-    },
-    quantityDecrement: (state, action) => {
-      if (state.quantity > 0) {
-        state.quantity = state.quantity - action.payload;
-      }
-    },
-    setSize: (state, action) => {
-      state.size = action.payload;
-    },
-    setColor: (state, action) => {
-      state.color = action.payload;
+    setProduct: (state, action) => {
+      state.data = action.payload;
     },
   },
 });
 
 export const selectProduct = (state: RootState) => state.product;
 
-export const { quantityIncrement, quantityDecrement, setSize, setColor } =
-  productSlice.actions;
+export const { setProduct } = productSlice.actions;
 
 export default productSlice.reducer;

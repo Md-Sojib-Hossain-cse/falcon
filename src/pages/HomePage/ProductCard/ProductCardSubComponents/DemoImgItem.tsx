@@ -3,7 +3,7 @@ const DemoImgItem = ({ imgSrc }: { imgSrc: string }) => {
     <img
       src={imgSrc}
       alt="alternateImages"
-      className="h-16 w-16 rounded-sm overflow-auto"
+      className="h-16 w-16 rounded-sm overflow-auto border border-[#C6C6C6]"
     />
   );
 };

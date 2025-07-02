@@ -1,10 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CgUnavailable } from "react-icons/cg";
+import { useAppDispatch } from "../../../../redux/hook";
+import { setColor } from "../../../../redux/features/product/productCard.Slice";
 
 type SampleColorImg = {
   imgSrc: string;
   isSelected: boolean;
   available: boolean;
   onClick?: () => void;
+  data: any;
 };
 
 const SampleColorImg = ({
@@ -12,10 +16,21 @@ const SampleColorImg = ({
   isSelected,
   onClick,
   available,
+  data,
 }: SampleColorImg) => {
+  const dispatch = useAppDispatch();
+
+  const color = data?.variation_attributes.map((variationInfo: any) => {
+    if (variationInfo.attribute.name === "Color") {
+      return variationInfo.attribute_option.attribute_value;
+    }
+    return;
+  });
+
   return (
-    <div className="relative">
+    <div onClick={() => dispatch(setColor(color))} className="relative">
       <img
+        title={color}
         onClick={onClick}
         src={imgSrc}
         alt="sample images"
