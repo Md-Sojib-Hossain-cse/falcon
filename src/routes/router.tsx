@@ -3,6 +3,7 @@ import GeneralLayout from "../layout/GeneralLayout";
 import MyCartPage from "../pages/MyCart/MyCartPage";
 import NotFound from "../pages/NotFound/NotFound";
 import Product from "../pages/HomePage/Product";
+import HomePage from "../pages/HomePage/HomePage";
 
 const router = createBrowserRouter([
   {
@@ -11,7 +12,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Product></Product>,
+        element: <HomePage></HomePage>,
       },
       {
         path: "/products/:slug",

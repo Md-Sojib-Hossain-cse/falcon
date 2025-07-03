@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { useAppSelector } from "../../../../redux/hook";
@@ -8,7 +9,7 @@ const Specification = () => {
   const product = useAppSelector(selectProduct);
 
   const productData = product?.data;
-  console.log(productData);
+
   return (
     <div className="relative lg:col-span-3 rounded-sm bg-white min-h-80 p-4 md:p-5 lg:p-6 flex flex-col justify-between">
       <div
@@ -20,16 +21,19 @@ const Specification = () => {
           Specification
         </h3>
         <h4 className="text[#252B42] text-base font-semibold md:text-lg leading-5 md:leading-6 lg:leading-7 mb-4 md:mb-6">
-          Sharp FP-J30E-B Air Purifier
+          {productData?.name}
         </h4>
         <ul className="text-[#475569] text-sm md:text-base leading-5 md:leading-6 lg:leading-7">
-          <li className="list-inside list-disc">
-            GMP Cosmetic Good Manufacturing Practice
-          </li>
-          <li className="list-inside list-disc">Cruelty Free</li>
-          <li className="list-inside list-disc">No Animal Testing</li>
-          <li className="list-inside list-disc">Zenpia Global Standard</li>
-          <li className="list-inside list-disc">Comply with Global Standard</li>
+          {productData?.variations?.map((singleVariant: any) =>
+            singleVariant?.variation_attributes?.map(
+              (variantAttributes: any, index: number) => (
+                <li key={index} className="list-inside list-disc">
+                  {variantAttributes?.attribute?.name}{" "}
+                  {variantAttributes?.attribute_option?.attribute_value}
+                </li>
+              )
+            )
+          )}
         </ul>
 
         <div

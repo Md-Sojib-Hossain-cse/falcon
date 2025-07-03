@@ -1,26 +1,16 @@
-import {
-  quantityDecrement,
-  quantityIncrement,
-} from "../redux/features/product/productCard.Slice";
-import {
-  decrementDraftQuantity,
-  incrementDraftQuantity,
-  selectProductDraftCard,
-} from "../redux/features/product/productDraftCard";
-import { useAppDispatch, useAppSelector } from "../redux/hook";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useAppDispatch } from "../redux/hook";
 
-const Counter = ({ stock }: { stock: number }) => {
+const CartCounter = ({ itemData }: { itemData: any }) => {
+  console.log(itemData);
   const dispatch = useAppDispatch();
-  const productDraftCardData = useAppSelector(selectProductDraftCard);
 
   const handleIncrement = () => {
     dispatch(quantityIncrement({ incrementBy: 1, stock: stock }));
-    dispatch(incrementDraftQuantity({ incrementBy: 1, stock: stock }));
   };
 
   const handleDecrement = () => {
     dispatch(quantityDecrement(1));
-    dispatch(decrementDraftQuantity(1));
   };
 
   return (
@@ -32,7 +22,7 @@ const Counter = ({ stock }: { stock: number }) => {
         -
       </button>
       <p className="text-[#252B42] font-medium leading-4 md:leading-5 lg:leading-6">
-        {productDraftCardData?.quantity}
+        {itemData?.draftProductData?.quantity}
       </p>
       <button
         onClick={handleIncrement}
@@ -44,4 +34,4 @@ const Counter = ({ stock }: { stock: number }) => {
   );
 };
 
-export default Counter;
+export default CartCounter;

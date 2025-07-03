@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 type SizeOption = {
-  size: string;
   isSelected: boolean;
   available: boolean;
   onClick?: () => void;
+  item: any;
 };
 
-const SizeOption = ({ size, isSelected, available, onClick }: SizeOption) => {
+const SizeOption = ({ isSelected, available, onClick, item }: SizeOption) => {
   return (
     <button
       onClick={onClick}
@@ -14,7 +15,7 @@ const SizeOption = ({ size, isSelected, available, onClick }: SizeOption) => {
       } ${available ? "text-[#334155]" : "text-[#CBD5E1]"} h-10 w-10`}
       disabled={available === false}
     >
-      {size}
+      {item?.attribute_option?.attribute_value}
     </button>
   );
 };

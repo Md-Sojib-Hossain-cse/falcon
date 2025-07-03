@@ -4,22 +4,56 @@ import DownArrow from "./DownArrow";
 import Rating from "./Rating";
 import DownArrowSm from "./DownArrowSm";
 import SampleColorImg from "./SampleColorImg";
-import {
-  selectProductCard,
-  setSize,
-} from "../../../../redux/features/product/productCard.Slice";
 import SizeOption from "./SizeOption";
 import Counter from "../../../../components/Counter";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hook";
 import { selectProduct } from "../../../../redux/features/product/product.Slice";
+import { addOnCart } from "../../../../redux/features/cart/cart.Slice";
+import toast from "react-hot-toast";
+import {
+  selectProductDraftCard,
+  setDraftSize,
+} from "../../../../redux/features/product/productDraftCard";
 
 const ProductDetailsPart = () => {
-  const productCardStateData = useAppSelector(selectProductCard);
+  const productDraftCardData = useAppSelector(selectProductDraftCard);
+  const draftProductData = useAppSelector(selectProductDraftCard);
   const dispatch = useAppDispatch();
-
   const product = useAppSelector(selectProduct);
 
   const productData = product?.data;
+  const allSizes = ["XL", "XS", "S", "M", "L"];
+  const availableSizes: string[] = [];
+
+  const handleAddToCart = () => {
+    if (productData) {
+      const addedProductData = {
+        merchantInfo: productData?.merchant || {
+          id: null,
+          shop_name: "unknown",
+        },
+        productInfo: [
+          {
+            ...productData,
+            draftProductData: draftProductData,
+          },
+        ],
+      };
+      dispatch(addOnCart(addedProductData));
+      toast.success("Product added to cart!");
+    }
+  };
+
+  productData?.variations?.forEach((variation: any) => {
+    variation?.variation_attributes?.forEach((att: any) => {
+      if (
+        att?.attribute?.name === "Size" &&
+        !availableSizes.includes(att?.attribute_option?.attribute_value)
+      ) {
+        availableSizes.push(att?.attribute_option?.attribute_value);
+      }
+    });
+  });
 
   return (
     <div className="lg:col-span-5 space-y-4 md:space-y-5 lg:space-y-6">
@@ -38,7 +72,7 @@ const ProductDetailsPart = () => {
               <DownArrow></DownArrow>
             </div>
             <div className="flex justify-end items-center gap-2">
-              <CiHeart className="h-4 md:h-6 lg:h-8 w-4 md:w-6 lg:w-8" />
+              <CiHeart className="h-4 md:h-6 lg:h-8 w-4 md:w-6 lg:w-8 " />
               <CiShare2 className="h-4 md:h-6 lg:h-8 w-4 md:w-6 lg:w-8" />
             </div>
           </div>
@@ -63,14 +97,13 @@ const ProductDetailsPart = () => {
           <div className="space-y-2">
             <h6 className="font-medium leading-4 md:leading-5 lg:leading-6">
               <span className="font-normal">Available Color:</span>{" "}
-              {productCardStateData?.color || "Default"}
+              {productDraftCardData?.color || "Default"}
             </h6>
             <div className="grid grid-cols-7 gap-4 auto-rows-auto">
               {productData?.variations?.map((item: any) => (
                 <SampleColorImg
                   key={item?.id}
-                  isSelected={productCardStateData?.color === item?.sku}
-                  available={true}
+                  available={item?.total_stock_qty > 0}
                   imgSrc={item?.image}
                   data={item}
                 ></SampleColorImg>
@@ -79,39 +112,23 @@ const ProductDetailsPart = () => {
           </div>
           <div className="space-y-2">
             <h6 className="font-medium leading-4 md:leading-5 lg:leading-6">
-              Select Size: XS
+              Select Size: {productDraftCardData?.size || "N/A"}
             </h6>
             <div className="flex gap-3 items-center">
-              <SizeOption
-                size="XL"
-                onClick={() => dispatch(setSize("XL"))}
-                isSelected={productCardStateData?.size === "XL"}
-                available={true}
-              ></SizeOption>
-              <SizeOption
-                size="XS"
-                onClick={() => dispatch(setSize("XS"))}
-                isSelected={productCardStateData?.size === "XS"}
-                available={true}
-              ></SizeOption>
-              <SizeOption
-                size="S"
-                onClick={() => dispatch(setSize("S"))}
-                isSelected={productCardStateData?.size === "S"}
-                available={true}
-              ></SizeOption>
-              <SizeOption
-                size="M"
-                onClick={() => dispatch(setSize("M"))}
-                isSelected={productCardStateData?.size === "M"}
-                available={true}
-              ></SizeOption>
-              <SizeOption
-                size="L"
-                onClick={() => dispatch(setSize("L"))}
-                isSelected={productCardStateData?.size === "L"}
-                available={false}
-              ></SizeOption>
+              {allSizes.map((size) => {
+                const isAvailable = availableSizes.includes(size);
+                return (
+                  <SizeOption
+                    key={size}
+                    item={{ attribute_option: { attribute_value: size } }}
+                    onClick={() => {
+                      dispatch(setDraftSize(size));
+                    }}
+                    isSelected={productDraftCardData?.size === size}
+                    available={isAvailable}
+                  />
+                );
+              })}
             </div>
           </div>
           <div className="space-y-2">
@@ -125,8 +142,12 @@ const ProductDetailsPart = () => {
         </div>
       </div>
       <button
-        className="w-full max-w-[412px] font-medium leading-4 md:leading-5 lg:leading-6 bg-[#00A788] rounded-sm p-2.5 text-white 
-             transition active:scale-95 duration-100 ease-in-out"
+        disabled={productDraftCardData?.quantity <= 0}
+        onClick={handleAddToCart}
+        className={`${
+          productDraftCardData?.quantity <= 0 ? "bg-gray-400" : "bg-[#00A788]"
+        } w-full max-w-[412px] font-medium leading-4 md:leading-5 lg:leading-6 bg-[#00A788] rounded-sm p-2.5 text-white 
+             transition active:scale-95 duration-100 ease-in-out`}
       >
         Add to Cart
       </button>

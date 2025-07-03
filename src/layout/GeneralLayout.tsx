@@ -3,10 +3,12 @@ import Navbar from "../components/shared/Navbar";
 import NavigationPath from "../components/shared/NavigationPath";
 import Footer from "../components/shared/Footer";
 import TinyNav from "../components/shared/TinyNav";
+import { Toaster } from "react-hot-toast";
 
 const GeneralLayout = () => {
   return (
     <div className="onest-font">
+      <Toaster />
       <Navbar></Navbar>
       <TinyNav></TinyNav>
       <NavigationPath></NavigationPath>

@@ -4,17 +4,13 @@ import DescriptionAndSpecs from "./DescriptionAndSpecs/DescriptionAndSpecs";
 import ProductCard from "./ProductCard/ProductCard";
 import { useAppDispatch } from "../../redux/hook";
 import { setProduct } from "../../redux/features/product/product.Slice";
+import { setProductDraft } from "../../redux/features/product/productDraftCard";
 
 const Product = () => {
   const { slug } = useParams();
   const dispatch = useAppDispatch();
 
-  const { isLoading, isError, data } = useGetSingleProductQuery(slug, {
-    pollingInterval: 30000,
-    refetchOnFocus: true,
-    refetchOnMountOrArgChange: true,
-    refetchOnReconnect: true,
-  });
+  const { isLoading, isError, data } = useGetSingleProductQuery(slug);
 
   if (isLoading)
     return (
@@ -33,7 +29,21 @@ const Product = () => {
     );
 
   if (data) {
+    const draftProduct = {
+      id: data?.data?.id || undefined,
+      slug: data?.data?.slug || "",
+      variationId: undefined,
+      sku: data?.data?.sku || "",
+      color: "Default",
+      size: "Default",
+      total_stock_qty: data?.data?.total_stock_qty || 0,
+      regular_price: data?.data?.product_detail?.regular_price || 0,
+      discount_price: data?.data?.product_detail?.discount_price || 0,
+      quantity: 0,
+      totalPrize: 0,
+    };
     dispatch(setProduct(data?.data));
+    dispatch(setProductDraft(draftProduct));
   }
 
   return (

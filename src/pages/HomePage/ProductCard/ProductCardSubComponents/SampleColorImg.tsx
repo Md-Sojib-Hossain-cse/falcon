@@ -1,11 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CgUnavailable } from "react-icons/cg";
-import { useAppDispatch } from "../../../../redux/hook";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hook";
 import { setColor } from "../../../../redux/features/product/productCard.Slice";
+import {
+  selectProductDraftCard,
+  setDraftColor,
+  setDraftSku,
+  setDraftVariationId,
+} from "../../../../redux/features/product/productDraftCard";
 
 type SampleColorImg = {
   imgSrc: string;
-  isSelected: boolean;
   available: boolean;
   onClick?: () => void;
   data: any;
@@ -13,12 +18,12 @@ type SampleColorImg = {
 
 const SampleColorImg = ({
   imgSrc,
-  isSelected,
   onClick,
   available,
   data,
 }: SampleColorImg) => {
   const dispatch = useAppDispatch();
+  const draftCardProduct = useAppSelector(selectProductDraftCard);
 
   const color = data?.variation_attributes.map((variationInfo: any) => {
     if (variationInfo.attribute.name === "Color") {
@@ -27,10 +32,19 @@ const SampleColorImg = ({
     return;
   });
 
+  const handleSampleColorImg = () => {
+    dispatch(setColor(color[1]));
+    dispatch(setDraftColor(color[1]));
+    dispatch(setDraftVariationId(data?.id));
+    dispatch(setDraftSku(data?.sku || ""));
+  };
+
+  const isSelected = draftCardProduct?.variationId === data?.id;
+
   return (
-    <div onClick={() => dispatch(setColor(color))} className="relative">
+    <div onClick={handleSampleColorImg} className="relative">
       <img
-        title={color}
+        title={color[1]}
         onClick={onClick}
         src={imgSrc}
         alt="sample images"

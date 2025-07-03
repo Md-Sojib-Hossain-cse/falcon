@@ -1,4 +1,7 @@
+import { useState } from "react";
+
 const OrderSummery = () => {
+  const [agree, isAgree] = useState(false);
   return (
     <div className="space-y-3 md:space-y-4 pb-6">
       <div className="bg-white rounded-lg py-2 md:py-3 px-4 md:px-5 lg:px-6 space-y-3 md:space-y-4">
@@ -47,16 +50,25 @@ const OrderSummery = () => {
             </div>
           </div>
         </div>
-        <button className="text-white font-medium bg-[#00B795] rounded-sm p-2.5 w-full transition active:scale-95 duration-100 ease-in-out">
+        <button
+          disabled={agree === false}
+          className={`text-white font-medium rounded-sm p-2.5 w-full ${
+            agree
+              ? "transition active:scale-95 duration-100 ease-in-out bg-[#00B795]"
+              : "bg-gray-300"
+          }`}
+        >
           Proceed to Checkout
         </button>
       </div>
       <div className="rounded-sm flex gap-2">
         <input
+          onClick={() => isAgree(!agree)}
           type="checkbox"
           name="iAgreeByPolicy"
           id="iAgreeByPolicy"
           className="accent-[#00B795] w-5 h-5 rounded-sm bg-gray-100"
+          checked={agree ? true : false}
         />
         <label htmlFor="iAgreeByPolicy" className="text-[#475569] text-sm">
           I have read and agree to the Terms and Conditions, Privacy Policy and

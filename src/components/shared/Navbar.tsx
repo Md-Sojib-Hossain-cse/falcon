@@ -2,8 +2,11 @@ import { IoCartOutline } from "react-icons/io5";
 import Logo from "../../assets/logo.png";
 import { CiSearch, CiUser } from "react-icons/ci";
 import { Link } from "react-router";
+import { useAppSelector } from "../../redux/hook";
+import { selectTotalProducts } from "../../redux/features/cart/cart.Slice";
 
 const Navbar = () => {
+  const cartItemCount = useAppSelector(selectTotalProducts);
   return (
     <nav className="bg-[#0F172A] text-white">
       <div className="flex justify-between items-center w-full max-w-[1440px] mx-auto px-4 py-2 md:px-8 md:py-3 lg:px-20 lg:py-4 gap-6">
@@ -33,7 +36,7 @@ const Navbar = () => {
           <Link to="/myCart" className="relative">
             <IoCartOutline className="h-4 md:h-6 lg:h-8 w-4 md:w-6 lg:w-8" />
             <p className="absolute -top-2 -right-2 bg-[#EF4444] h-3  md:h-5 w-3  md:w-5 rounded-full text-white flex justify-center items-center text-[10px] md:text[12px]">
-              0
+              {cartItemCount || 0}
             </p>
           </Link>
           <CiUser className="h-4 md:h-6 lg:h-8 w-4 md:w-6 lg:w-8" />
