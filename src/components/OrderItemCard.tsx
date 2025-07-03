@@ -1,16 +1,44 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FaRegTrashAlt } from "react-icons/fa";
 import CartCounter from "./CartCounter";
+import { useAppDispatch, useAppSelector } from "../redux/hook";
+import {
+  removeSelectionSingleCartItem,
+  selectSelector,
+  selectSingleCartItem,
+} from "../redux/features/cart/selector.Slice";
 
-const OrderItemCard = ({ itemData }: { itemData: any }) => {
+const OrderItemCard = ({
+  itemData,
+  isSelected,
+}: {
+  itemData: any;
+  isSelected: boolean;
+}) => {
+  const dispatch = useAppDispatch();
+  const selectorState = useAppSelector(selectSelector);
+
+  const handleSelectItemToggle = () => {
+    if (selectorState.selectedProducts.includes(itemData.id)) {
+      dispatch(removeSelectionSingleCartItem(itemData.id));
+    } else {
+      dispatch(selectSingleCartItem(itemData.id));
+    }
+  };
 
   return (
     <div className="flex gap-3 md:gap-4 p-2 md:p-3">
       <input
+        onClick={handleSelectItemToggle}
         type="checkbox"
         name="checkStore"
         id="checkStore"
         className="accent-[#00B795] w-4 h-4 rounded-sm bg-gray-100"
+        checked={
+          selectorState.selectAll ||
+          selectorState.selectedProducts.includes(itemData.id) ||
+          isSelected
+        }
       />
       <div className="flex gap-3 md:gap-4 w-full flex-col md:flex-row">
         <div className="flex justify-center items-center">

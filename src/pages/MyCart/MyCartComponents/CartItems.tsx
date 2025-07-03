@@ -2,16 +2,42 @@
 import { FaChevronRight } from "react-icons/fa";
 import { PiStorefrontLight } from "react-icons/pi";
 import OrderItemCard from "../../../components/OrderItemCard";
+import { useAppDispatch, useAppSelector } from "../../../redux/hook";
+import {
+  removeSelectionMerchantOnCart,
+  selectSelector,
+  selectSingleMerchantOnCart,
+} from "../../../redux/features/cart/selector.Slice";
 
 const CartItems = ({ cartItem }: { cartItem: any }) => {
+  const selectorState = useAppSelector(selectSelector);
+  const dispatch = useAppDispatch();
+
+  const handleMerchantSelectToggle = () => {
+    if (
+      selectorState?.selectedMerchants?.includes(cartItem?.merchantInfo?.id)
+    ) {
+      dispatch(removeSelectionMerchantOnCart(cartItem?.merchantInfo?.id));
+    } else {
+      dispatch(selectSingleMerchantOnCart(cartItem?.merchantInfo?.id));
+    }
+  };
+
   return (
     <div>
       <div className="bg-[#F1F5F9] py-2 px-3 flex items-center gap-2">
         <input
+          onClick={handleMerchantSelectToggle}
           type="checkbox"
           name="checkStore"
           id="checkStore"
           className="accent-[#00B795] w-4 h-4 rounded-sm bg-gray-100"
+          checked={
+            selectorState.selectAll ||
+            selectorState?.selectedMerchants?.includes(
+              cartItem?.merchantInfo?.id
+            )
+          }
         />
         <PiStorefrontLight className="text-lg text-[#334155]" />
         <div className="flex gap-1 items-center">
@@ -22,7 +48,12 @@ const CartItems = ({ cartItem }: { cartItem: any }) => {
         </div>
       </div>
       {cartItem?.productInfo?.map((singleProduct: any) => (
-        <OrderItemCard itemData={singleProduct}></OrderItemCard>
+        <OrderItemCard
+          isSelected={selectorState?.selectedMerchants?.includes(
+            cartItem?.merchantInfo?.id
+          )}
+          itemData={singleProduct}
+        ></OrderItemCard>
       ))}
     </div>
   );

@@ -1,8 +1,4 @@
 import {
-  quantityDecrement,
-  quantityIncrement,
-} from "../redux/features/product/productCard.Slice";
-import {
   decrementDraftQuantity,
   incrementDraftQuantity,
   selectProductDraftCard,
@@ -14,12 +10,10 @@ const Counter = ({ stock }: { stock: number }) => {
   const productDraftCardData = useAppSelector(selectProductDraftCard);
 
   const handleIncrement = () => {
-    dispatch(quantityIncrement({ incrementBy: 1, stock: stock }));
     dispatch(incrementDraftQuantity({ incrementBy: 1, stock: stock }));
   };
 
   const handleDecrement = () => {
-    dispatch(quantityDecrement(1));
     dispatch(decrementDraftQuantity(1));
   };
 

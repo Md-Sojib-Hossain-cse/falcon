@@ -3,13 +3,19 @@ import {
   selectCart,
   selectTotalProducts,
 } from "../../redux/features/cart/cart.Slice";
-import { useAppSelector } from "../../redux/hook";
+import {
+  selectSelector,
+  toggleSelectAll,
+} from "../../redux/features/cart/selector.Slice";
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import CartItems from "./MyCartComponents/CartItems";
 import OrderSummery from "./MyCartComponents/OrderSummery";
 
 const MyCartPage = () => {
   const cartItemCount = useAppSelector(selectTotalProducts);
   const cartData = useAppSelector(selectCart);
+  const dispatch = useAppDispatch();
+  const selectorStates = useAppSelector(selectSelector);
 
   return (
     <main className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 lg:gap-6 w-full max-w-[1440px] mx-auto px-4 md:px-8 lg:px-20 mb-4 md:mb-6">
@@ -21,11 +27,17 @@ const MyCartPage = () => {
             </h2>
           </div>
           <div className="flex items-center gap-6 md:gap-7 lg:gap-8">
-            <button className="flex gap-2">
-              <input type="checkbox" name="selectAll" id="selectAll" />
-              <label htmlFor="selectAll" className="text-[#475569]">
-                Select All
-              </label>
+            <button
+              onClick={() => dispatch(toggleSelectAll())}
+              className="flex gap-2"
+            >
+              <input
+                type="checkbox"
+                name="selectAll"
+                id="selectAll"
+                checked={selectorStates?.selectAll}
+              />
+              <p className="text-[#475569]">Select All</p>
             </button>
             <button className="text-[#475569]">Clear All</button>
           </div>

@@ -51,7 +51,7 @@ const DeliveryAndMerchant = () => {
                 <div className="space-y-2">
                   <div className="flex gap-1">
                     <p className="text-sm leading-4 md:leading-5">
-                      {productData?.brand?.name || "Unknown"}
+                      {productData?.merchant?.shop_name || "Unknown"}
                     </p>
                     <img
                       src={verifiedIcon}

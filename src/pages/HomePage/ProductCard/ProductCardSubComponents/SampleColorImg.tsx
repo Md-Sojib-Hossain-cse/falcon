@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CgUnavailable } from "react-icons/cg";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hook";
-import { setColor } from "../../../../redux/features/product/productCard.Slice";
 import {
   selectProductDraftCard,
   setDraftColor,
@@ -33,7 +32,6 @@ const SampleColorImg = ({
   });
 
   const handleSampleColorImg = () => {
-    dispatch(setColor(color[1]));
     dispatch(setDraftColor(color[1]));
     dispatch(setDraftVariationId(data?.id));
     dispatch(setDraftSku(data?.sku || ""));
