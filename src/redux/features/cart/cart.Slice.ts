@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../../store";
+import type { TSelectorSlice } from "./selector.Slice";
 
 const initialState: any = {
   data: [],
@@ -101,6 +102,39 @@ const cartSlice = createSlice({
           .filter((merchantItem: any) => merchantItem.productInfo.length > 0); // remove merchants with no products
       }
     },
+    allSelectedItemRemoveFromCart: (
+      state,
+      action: PayloadAction<Partial<TSelectorSlice>>
+    ) => {
+      if (state?.data?.length) {
+        if (action.payload.selectAll) {
+          state.data = [];
+          return;
+        }
+
+        if (action.payload.selectedMerchants?.length) {
+          state.data = state.data.filter(
+            (merchant: any) =>
+              !action.payload.selectedMerchants?.includes(
+                merchant.merchantInfo.id
+              )
+          );
+        } else if (action.payload.selectedProducts?.length) {
+          state.data = state.data
+            .map((merchant: any) => {
+              const updatedProducts = merchant.productInfo.filter(
+                (product: any) =>
+                  !action.payload.selectedProducts?.includes(product.id)
+              );
+              return {
+                ...merchant,
+                productInfo: updatedProducts,
+              };
+            })
+            .filter((merchant: any) => merchant.productInfo.length > 0);
+        }
+      }
+    },
   },
 });
 
@@ -115,6 +149,7 @@ export const selectTotalProducts = (state: RootState) =>
 export const {
   addOnCart,
   singleItemRemoveFromCart,
+  allSelectedItemRemoveFromCart,
   incrementQuantity,
   decrementQuantity,
   calculateTotalPrice,

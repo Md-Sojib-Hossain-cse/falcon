@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
+  allSelectedItemRemoveFromCart,
+  calculateTotalPrice,
   selectCart,
   selectTotalProducts,
 } from "../../redux/features/cart/cart.Slice";
@@ -16,6 +18,11 @@ const MyCartPage = () => {
   const cartData = useAppSelector(selectCart);
   const dispatch = useAppDispatch();
   const selectorStates = useAppSelector(selectSelector);
+
+  const handleClearAll = () => {
+    dispatch(allSelectedItemRemoveFromCart(selectorStates));
+    dispatch(calculateTotalPrice());
+  };
 
   return (
     <main className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 lg:gap-6 w-full max-w-[1440px] mx-auto px-4 md:px-8 lg:px-20 mb-4 md:mb-6">
@@ -39,7 +46,9 @@ const MyCartPage = () => {
               />
               <p className="text-[#475569]">Select All</p>
             </button>
-            <button className="text-[#475569]">Clear All</button>
+            <button onClick={handleClearAll} className="text-[#475569]">
+              Clear All
+            </button>
           </div>
         </div>
         <div className="pl-4 md:pl-5">

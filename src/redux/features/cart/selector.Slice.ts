@@ -6,7 +6,7 @@ type TMerchantPayload = {
   itemIds: number[] | [];
 };
 
-type TSelectorSlice = {
+export type TSelectorSlice = {
   selectAll: boolean;
   selectedMerchants: number[];
   selectedProducts: number[];
