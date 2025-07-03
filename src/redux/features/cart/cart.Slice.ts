@@ -86,10 +86,19 @@ const cartSlice = createSlice({
         });
       });
     },
-    removeFromCart: (state, action) => {
-      if (state.data.length) {
-        state.data = state.data.filter = (singleProduct: any) =>
-          singleProduct?.slug !== action?.payload?.slug;
+    singleItemRemoveFromCart: (state, action: PayloadAction<number>) => {
+      if (state?.data?.length) {
+        state.data = state.data
+          .map((merchantItem: any) => {
+            const updatedProducts = merchantItem.productInfo.filter(
+              (product: any) => product.id !== action.payload
+            );
+            return {
+              ...merchantItem,
+              productInfo: updatedProducts,
+            };
+          })
+          .filter((merchantItem: any) => merchantItem.productInfo.length > 0); // remove merchants with no products
       }
     },
   },
@@ -105,7 +114,7 @@ export const selectTotalProducts = (state: RootState) =>
 
 export const {
   addOnCart,
-  removeFromCart,
+  singleItemRemoveFromCart,
   incrementQuantity,
   decrementQuantity,
   calculateTotalPrice,

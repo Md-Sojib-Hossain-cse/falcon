@@ -7,6 +7,11 @@ import {
   selectSelector,
   selectSingleCartItem,
 } from "../redux/features/cart/selector.Slice";
+import {
+  calculateTotalPrice,
+  singleItemRemoveFromCart,
+} from "../redux/features/cart/cart.Slice";
+import toast from "react-hot-toast";
 
 const OrderItemCard = ({
   itemData,
@@ -24,6 +29,12 @@ const OrderItemCard = ({
     } else {
       dispatch(selectSingleCartItem(itemData.id));
     }
+  };
+
+  const handleDeleteItemFromCart = () => {
+    dispatch(singleItemRemoveFromCart(itemData?.id));
+    dispatch(calculateTotalPrice());
+    toast.success("Item successfully deleted from cart!!");
   };
 
   return (
@@ -65,7 +76,10 @@ const OrderItemCard = ({
             </div>
             <div className="flex gap-3 md:gap-6 lg:gap-8 items-center">
               <CartCounter itemData={itemData}></CartCounter>
-              <FaRegTrashAlt className="text-[#94A3B8]" />
+              <FaRegTrashAlt
+                onClick={handleDeleteItemFromCart}
+                className="text-[#94A3B8]"
+              />
             </div>
           </div>
           <div className="flex items-center gap-2">

@@ -13,13 +13,25 @@ const CartItems = ({ cartItem }: { cartItem: any }) => {
   const selectorState = useAppSelector(selectSelector);
   const dispatch = useAppDispatch();
 
+  const productIds = cartItem?.productInfo?.map((item: any) => item.id);
+
   const handleMerchantSelectToggle = () => {
     if (
       selectorState?.selectedMerchants?.includes(cartItem?.merchantInfo?.id)
     ) {
-      dispatch(removeSelectionMerchantOnCart(cartItem?.merchantInfo?.id));
+      dispatch(
+        removeSelectionMerchantOnCart({
+          merchantId: cartItem?.merchantInfo?.id,
+          itemIds: productIds,
+        })
+      );
     } else {
-      dispatch(selectSingleMerchantOnCart(cartItem?.merchantInfo?.id));
+      dispatch(
+        selectSingleMerchantOnCart({
+          merchantId: cartItem?.merchantInfo?.id,
+          itemIds: productIds,
+        })
+      );
     }
   };
 

@@ -1,6 +1,11 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../../store";
 
+type TMerchantPayload = {
+  merchantId: number;
+  itemIds: number[] | [];
+};
+
 type TSelectorSlice = {
   selectAll: boolean;
   selectedMerchants: number[];
@@ -36,14 +41,31 @@ const selectorSlice = createSlice({
         (item) => item !== action.payload
       );
     },
-    selectSingleMerchantOnCart: (state, action: PayloadAction<number>) => {
-      if (!state.selectedMerchants.includes(action.payload)) {
-        state.selectedMerchants.push(action.payload);
+    selectSingleMerchantOnCart: (
+      state,
+      action: PayloadAction<TMerchantPayload>
+    ) => {
+      const { merchantId, itemIds } = action.payload;
+
+      if (!state.selectedMerchants.includes(merchantId)) {
+        state.selectedMerchants.push(merchantId);
       }
+
+      itemIds.forEach((itemId) => {
+        if (!state.selectedProducts.includes(itemId)) {
+          state.selectedProducts.push(itemId);
+        }
+      });
     },
-    removeSelectionMerchantOnCart: (state, action: PayloadAction<number>) => {
+    removeSelectionMerchantOnCart: (
+      state: TSelectorSlice,
+      action: PayloadAction<TMerchantPayload>
+    ) => {
       state.selectedMerchants = state.selectedMerchants.filter(
-        (item) => item !== action.payload
+        (item) => item !== action?.payload?.merchantId
+      );
+      state.selectedProducts = action.payload.itemIds.filter(
+        (itemId: number) => !state?.selectedProducts?.includes(itemId)
       );
     },
   },

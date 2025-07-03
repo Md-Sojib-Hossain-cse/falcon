@@ -3,12 +3,14 @@ import { useAppSelector } from "../../../redux/hook";
 import {
   selectCart,
   selectTotalPrice,
+  selectTotalProducts,
 } from "../../../redux/features/cart/cart.Slice";
 
 const OrderSummery = () => {
   const [agree, isAgree] = useState(false);
   const totalPrice = useAppSelector(selectTotalPrice);
   const cartData = useAppSelector(selectCart);
+  const cartItemCount = useAppSelector(selectTotalProducts);
 
   return (
     <div className="space-y-3 md:space-y-4 pb-6">
@@ -22,7 +24,7 @@ const OrderSummery = () => {
               <div className="space-y-2.5 md:space-y-3">
                 <div className="flex justify-between items-center">
                   <p className="text-[#334155] text-base lg:text-lg font-medium">
-                    Price (3 items)
+                    Price ({cartItemCount || 0} items)
                   </p>
                   <p className="text-[#0F172A]">৳{totalPrice || 0}</p>
                 </div>
