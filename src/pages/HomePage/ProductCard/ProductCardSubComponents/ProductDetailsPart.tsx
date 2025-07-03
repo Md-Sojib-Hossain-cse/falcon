@@ -8,7 +8,10 @@ import SizeOption from "./SizeOption";
 import Counter from "../../../../components/Counter";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hook";
 import { selectProduct } from "../../../../redux/features/product/product.Slice";
-import { addOnCart } from "../../../../redux/features/cart/cart.Slice";
+import {
+  addOnCart,
+  calculateTotalPrice,
+} from "../../../../redux/features/cart/cart.Slice";
 import toast from "react-hot-toast";
 import {
   selectProductDraftCard,
@@ -40,6 +43,7 @@ const ProductDetailsPart = () => {
         ],
       };
       dispatch(addOnCart(addedProductData));
+      dispatch(calculateTotalPrice());
       toast.success("Product added to cart!");
     }
   };

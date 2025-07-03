@@ -1,7 +1,15 @@
 import { useState } from "react";
+import { useAppSelector } from "../../../redux/hook";
+import {
+  selectCart,
+  selectTotalPrice,
+} from "../../../redux/features/cart/cart.Slice";
 
 const OrderSummery = () => {
   const [agree, isAgree] = useState(false);
+  const totalPrice = useAppSelector(selectTotalPrice);
+  const cartData = useAppSelector(selectCart);
+
   return (
     <div className="space-y-3 md:space-y-4 pb-6">
       <div className="bg-white rounded-lg py-2 md:py-3 px-4 md:px-5 lg:px-6 space-y-3 md:space-y-4">
@@ -16,7 +24,7 @@ const OrderSummery = () => {
                   <p className="text-[#334155] text-base lg:text-lg font-medium">
                     Price (3 items)
                   </p>
-                  <p className="text-[#0F172A]">৳00</p>
+                  <p className="text-[#0F172A]">৳{totalPrice || 0}</p>
                 </div>
                 <div className="flex justify-between items-center">
                   <p className="text-[#475569] text-base md:text-lg font-medium">
@@ -45,17 +53,17 @@ const OrderSummery = () => {
                 Sub Total
               </p>
               <p className="text-[#171717] text-lg lg:text-xl font-semibold">
-                ৳00
+                ৳{totalPrice || 0}
               </p>
             </div>
           </div>
         </div>
         <button
-          disabled={agree === false}
+          disabled={agree === false || !cartData?.data?.length}
           className={`text-white font-medium rounded-sm p-2.5 w-full ${
-            agree
-              ? "transition active:scale-95 duration-100 ease-in-out bg-[#00B795]"
-              : "bg-gray-300"
+            !agree || !cartData?.data?.length
+              ? "bg-gray-300"
+              : "transition active:scale-95 duration-100 ease-in-out bg-[#00B795]"
           }`}
         >
           Proceed to Checkout

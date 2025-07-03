@@ -1,16 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import {
+  calculateTotalPrice,
+  decrementQuantity,
+  incrementQuantity,
+} from "../redux/features/cart/cart.Slice";
 import { useAppDispatch } from "../redux/hook";
 
 const CartCounter = ({ itemData }: { itemData: any }) => {
-  console.log(itemData);
   const dispatch = useAppDispatch();
 
   const handleIncrement = () => {
-    dispatch(quantityIncrement({ incrementBy: 1, stock: stock }));
+    dispatch(incrementQuantity(itemData?.id));
+    dispatch(calculateTotalPrice());
   };
 
   const handleDecrement = () => {
-    dispatch(quantityDecrement(1));
+    dispatch(decrementQuantity(itemData?.id));
+    dispatch(calculateTotalPrice());
   };
 
   return (
