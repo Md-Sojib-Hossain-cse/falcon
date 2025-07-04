@@ -54,8 +54,14 @@ const OrderItemCard = ({
       <div className="flex gap-3 md:gap-4 w-full flex-col md:flex-row">
         <div className="flex justify-center items-center">
           <img
-            src={itemData?.thumbnail}
+            src={`https://ik.imagekit.io/sojibhossaincse/${itemData?.thumbnail
+              .split("/")
+              .at(-1)}`}
             alt="product img"
+            onError={(e) => {
+              e.currentTarget.src =
+                "https://i.ibb.co/N2nYmrB5/not-available.png";
+            }}
             className="rounded-sm h-24 w-24"
           />
         </div>

@@ -1,12 +1,22 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { PiPackageLight } from "react-icons/pi";
 import { RiCustomerServiceLine, RiStoreLine } from "react-icons/ri";
 import LogoNavItem from "../LogoNavItem";
 import { IoMdClose } from "react-icons/io";
 import { useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { useGetCategoriesQuery } from "../../redux/api/baseApi";
 
 const TinyNav = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const { isLoading, isError, data } = useGetCategoriesQuery(undefined);
+
+  if (isLoading) return;
+
+  if (isError) return;
+
+  const dynamicCategories = data?.data?.map((item: any) => item?.name);
 
   const navItems = [
     "Electronics",
@@ -33,8 +43,17 @@ const TinyNav = () => {
           </p>
 
           {isOpen && (
-            <ul className="absolute lg:ml-20 top-12 left-0 w-full bg-white border-t z-20 flex flex-col gap-2 px-4 py-2 shadow-md lg:max-w-96">
-              {navItems.map((item, index) => (
+            <ul className="absolute lg:ml-20 top-12 left-0 w-full bg-white  z-20 flex flex-col gap-2 px-4 py-2 shadow-md lg:max-w-96 rounded-b-sm">
+              {navItems.map((item, idx) => (
+                <li
+                  key={idx}
+                  className="text-[#0F172A] text-sm list-none font-medium hover:text-[#00B795] cursor-pointer lg:hidden"
+                >
+                  {item}
+                </li>
+              ))}
+              <div className="border-b border-b-gray-200 lg:hidden"></div>
+              {dynamicCategories.map((item: string, index: number) => (
                 <li
                   key={index}
                   className="text-[#0F172A] text-sm font-medium hover:text-[#00B795] cursor-pointer"

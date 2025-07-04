@@ -108,7 +108,9 @@ const ProductDetailsPart = () => {
                 <SampleColorImg
                   key={item?.id}
                   available={item?.total_stock_qty > 0}
-                  imgSrc={item?.image}
+                  imgSrc={`https://ik.imagekit.io/sojibhossaincse/${item?.image
+                    .split("/")
+                    .at(-1)}`}
                   data={item}
                 ></SampleColorImg>
               ))}

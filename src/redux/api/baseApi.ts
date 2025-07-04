@@ -2,7 +2,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const baseApi = createApi({
   reducerPath: "baseApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://157.230.240.97:9999/api/v1" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://proxy-backend-coral.vercel.app/api",
+  }),
   endpoints: (builder) => ({
     getCategories: builder.query({
       query: () => ({
@@ -13,7 +15,7 @@ export const baseApi = createApi({
     }),
     getProducts: builder.query({
       query: () => ({
-        url: "/shop/products",
+        url: "/products",
         method: "GET",
       }),
       providesTags: ["products"],

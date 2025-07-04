@@ -46,6 +46,9 @@ const SampleColorImg = ({
         onClick={onClick}
         src={imgSrc}
         alt="sample images"
+        onError={(e) => {
+          e.currentTarget.src = "https://i.ibb.co/N2nYmrB5/not-available.png";
+        }}
         className={`${
           isSelected ? "border border-[#00A788]" : ""
         } h-14 w-14 rounded-sm overflow-auto`}

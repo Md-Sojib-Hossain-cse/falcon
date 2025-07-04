@@ -10,6 +10,8 @@ const Specification = () => {
 
   const productData = product?.data;
 
+  
+
   return (
     <div className="relative lg:col-span-3 rounded-sm bg-white min-h-80 p-4 md:p-5 lg:p-6 flex flex-col justify-between">
       <div
@@ -28,7 +30,7 @@ const Specification = () => {
             singleVariant?.variation_attributes?.map(
               (variantAttributes: any, index: number) => (
                 <li key={index} className="list-inside list-disc">
-                  {variantAttributes?.attribute?.name}{" "}
+                  {variantAttributes?.attribute?.name} :
                   {variantAttributes?.attribute_option?.attribute_value}
                 </li>
               )

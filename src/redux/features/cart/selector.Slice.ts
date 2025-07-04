@@ -68,6 +68,11 @@ const selectorSlice = createSlice({
         (itemId: number) => !state?.selectedProducts?.includes(itemId)
       );
     },
+    removeAllSelection: (state) => {
+      state.selectAll = false;
+      state.selectedMerchants = [];
+      state.selectedProducts = [];
+    },
   },
 });
 
@@ -79,6 +84,7 @@ export const {
   removeSelectionSingleCartItem,
   selectSingleMerchantOnCart,
   removeSelectionMerchantOnCart,
+  removeAllSelection,
 } = selectorSlice.actions;
 
 export default selectorSlice.reducer;

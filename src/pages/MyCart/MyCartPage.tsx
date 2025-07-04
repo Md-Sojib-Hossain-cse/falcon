@@ -6,6 +6,7 @@ import {
   selectTotalProducts,
 } from "../../redux/features/cart/cart.Slice";
 import {
+  removeAllSelection,
   selectSelector,
   toggleSelectAll,
 } from "../../redux/features/cart/selector.Slice";
@@ -21,6 +22,7 @@ const MyCartPage = () => {
 
   const handleClearAll = () => {
     dispatch(allSelectedItemRemoveFromCart(selectorStates));
+    dispatch(removeAllSelection());
     dispatch(calculateTotalPrice());
   };
 
@@ -42,11 +44,15 @@ const MyCartPage = () => {
                 type="checkbox"
                 name="selectAll"
                 id="selectAll"
+                className="accent-[#00B795] w-4 h-4 rounded-sm bg-gray-100"
                 checked={selectorStates?.selectAll}
               />
               <p className="text-[#475569]">Select All</p>
             </button>
-            <button onClick={handleClearAll} className="text-[#475569]">
+            <button
+              onClick={handleClearAll}
+              className="text-[#475569] transition active:scale-95 duration-100 ease-in-out"
+            >
               Clear All
             </button>
           </div>

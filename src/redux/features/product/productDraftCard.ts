@@ -33,7 +33,7 @@ const productDraftCardSlice = createSlice({
   name: "productDraftCard",
   initialState,
   reducers: {
-    setProductDraft: (state, action: PayloadAction<TDraftProductInfo>) => {
+    setProductDraft: (_state, action: PayloadAction<TDraftProductInfo>) => {
       return action.payload;
     },
     setDraftVariationId: (state, action: PayloadAction<number>) => {
