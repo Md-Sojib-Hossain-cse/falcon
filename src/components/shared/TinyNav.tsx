@@ -6,6 +6,7 @@ import { IoMdClose } from "react-icons/io";
 import { useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useGetCategoriesQuery } from "../../redux/api/baseApi";
+import { Link } from "react-router";
 
 const TinyNav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,21 +46,25 @@ const TinyNav = () => {
           {isOpen && (
             <ul className="absolute lg:ml-20 top-12 left-0 w-full bg-white  z-20 flex flex-col gap-2 px-4 py-2 shadow-md lg:max-w-96 rounded-b-sm">
               {navItems.map((item, idx) => (
-                <li
+                <Link
+                  to="/"
                   key={idx}
+                  onClick={() => setIsOpen(false)}
                   className="text-[#0F172A] text-sm list-none font-medium hover:text-[#00B795] cursor-pointer lg:hidden"
                 >
                   {item}
-                </li>
+                </Link>
               ))}
               <div className="border-b border-b-gray-200 lg:hidden"></div>
               {dynamicCategories.map((item: string, index: number) => (
-                <li
+                <Link
+                  to="/"
+                  onClick={() => setIsOpen(false)}
                   key={index}
                   className="text-[#0F172A] text-sm font-medium hover:text-[#00B795] cursor-pointer"
                 >
                   {item}
-                </li>
+                </Link>
               ))}
             </ul>
           )}
@@ -67,12 +72,13 @@ const TinyNav = () => {
 
         <div className="hidden lg:flex gap-5 xl:gap-6 2xl:gap-8 items-center">
           {navItems.map((item, idx) => (
-            <li
+            <Link
+              to="/"
               key={idx}
               className="text-[#0F172A] text-sm list-none font-medium hover:text-[#00B795] cursor-pointer"
             >
               {item}
-            </li>
+            </Link>
           ))}
         </div>
 

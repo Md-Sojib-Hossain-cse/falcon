@@ -39,7 +39,9 @@ const Navbar = () => {
               {cartItemCount || 0}
             </p>
           </Link>
-          <CiUser className="h-4 md:h-6 lg:h-8 w-4 md:w-6 lg:w-8" />
+          <Link to="/">
+            <CiUser className="h-4 md:h-6 lg:h-8 w-4 md:w-6 lg:w-8" />
+          </Link>
         </div>
       </div>
     </nav>

@@ -17,8 +17,11 @@ import {
   selectProductDraftCard,
   setDraftSize,
 } from "../../../../redux/features/product/productDraftCard";
+import { FaHeart } from "react-icons/fa";
+import { useState } from "react";
 
 const ProductDetailsPart = () => {
+  const [reaction, setReaction] = useState(false);
   const productDraftCardData = useAppSelector(selectProductDraftCard);
   const draftProductData = useAppSelector(selectProductDraftCard);
   const dispatch = useAppDispatch();
@@ -76,7 +79,22 @@ const ProductDetailsPart = () => {
               <DownArrow></DownArrow>
             </div>
             <div className="flex justify-end items-center gap-2">
-              <CiHeart className="h-4 md:h-6 lg:h-8 w-4 md:w-6 lg:w-8 " />
+              <CiHeart
+                onClick={() => {
+                  setReaction(true);
+                }}
+                className={`${
+                  reaction ? "hidden" : ""
+                } h-4 md:h-6 lg:h-8 w-4 md:w-6 lg:w-8`}
+              />
+              <FaHeart
+                onClick={() => {
+                  setReaction(false);
+                }}
+                className={`${
+                  reaction ? "" : "hidden"
+                } h-4 md:h-6 lg:h-8 w-4 md:w-6 lg:w-8 text-red-500`}
+              />
               <CiShare2 className="h-4 md:h-6 lg:h-8 w-4 md:w-6 lg:w-8" />
             </div>
           </div>
