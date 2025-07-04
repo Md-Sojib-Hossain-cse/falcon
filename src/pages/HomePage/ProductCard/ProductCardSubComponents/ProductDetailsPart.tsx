@@ -11,6 +11,8 @@ import { selectProduct } from "../../../../redux/features/product/product.Slice"
 import {
   addOnCart,
   calculateTotalPrice,
+  selectCart,
+  setCart,
 } from "../../../../redux/features/cart/cart.Slice";
 import toast from "react-hot-toast";
 import {
@@ -18,7 +20,7 @@ import {
   setDraftSize,
 } from "../../../../redux/features/product/productDraftCard";
 import { FaHeart } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ProductDetailsPart = () => {
   const [reaction, setReaction] = useState(false);
@@ -26,10 +28,22 @@ const ProductDetailsPart = () => {
   const draftProductData = useAppSelector(selectProductDraftCard);
   const dispatch = useAppDispatch();
   const product = useAppSelector(selectProduct);
+  const cart = useAppSelector(selectCart);
 
   const productData = product?.data;
   const allSizes = ["XL", "XS", "S", "M", "L"];
   const availableSizes: string[] = [];
+
+  useEffect(() => {
+    const savedCart = localStorage.getItem("cart");
+    if (savedCart) {
+      dispatch(setCart(JSON.parse(savedCart)));
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   const handleAddToCart = () => {
     if (productData) {
@@ -47,6 +61,7 @@ const ProductDetailsPart = () => {
       };
       dispatch(addOnCart(addedProductData));
       dispatch(calculateTotalPrice());
+
       toast.success("Product added to cart!");
     }
   };

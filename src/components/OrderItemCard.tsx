@@ -9,9 +9,12 @@ import {
 } from "../redux/features/cart/selector.Slice";
 import {
   calculateTotalPrice,
+  selectCart,
+  setCart,
   singleItemRemoveFromCart,
 } from "../redux/features/cart/cart.Slice";
 import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 const OrderItemCard = ({
   itemData,
@@ -22,6 +25,18 @@ const OrderItemCard = ({
 }) => {
   const dispatch = useAppDispatch();
   const selectorState = useAppSelector(selectSelector);
+  const cart = useAppSelector(selectCart);
+
+  useEffect(() => {
+    const storedCart = localStorage.getItem("cart");
+    if (storedCart) {
+      dispatch(setCart(JSON.parse(storedCart)));
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   const handleSelectItemToggle = () => {
     if (selectorState.selectedProducts.includes(itemData.id)) {
@@ -34,6 +49,7 @@ const OrderItemCard = ({
   const handleDeleteItemFromCart = () => {
     dispatch(singleItemRemoveFromCart(itemData?.id));
     dispatch(calculateTotalPrice());
+    localStorage.setItem("cart", JSON.stringify(cart));
     toast.success("Item successfully deleted from cart!!");
   };
 

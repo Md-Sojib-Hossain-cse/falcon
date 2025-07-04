@@ -12,7 +12,7 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addOnCart: (state, action) => {
+    addOnCart: (state, action: PayloadAction<any>) => {
       const newMerchant = action.payload.merchantInfo;
       const newProduct = action.payload.productInfo[0];
 
@@ -38,6 +38,9 @@ const cartSlice = createSlice({
           productInfo: [newProduct],
         });
       }
+    },
+    setCart: (_state, action: PayloadAction<any>) => {
+      return action.payload;
     },
     calculateTotalPrice: (state) => {
       let total = 0;
@@ -148,6 +151,7 @@ export const selectTotalProducts = (state: RootState) =>
 
 export const {
   addOnCart,
+  setCart,
   singleItemRemoveFromCart,
   allSelectedItemRemoveFromCart,
   incrementQuantity,

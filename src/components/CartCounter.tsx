@@ -1,13 +1,30 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect } from "react";
 import {
   calculateTotalPrice,
   decrementQuantity,
   incrementQuantity,
+  selectCart,
+  setCart,
 } from "../redux/features/cart/cart.Slice";
-import { useAppDispatch } from "../redux/hook";
+import { useAppDispatch, useAppSelector } from "../redux/hook";
 
 const CartCounter = ({ itemData }: { itemData: any }) => {
   const dispatch = useAppDispatch();
+  const cart = useAppSelector(selectCart);
+
+  useEffect(() => {
+    const savedCart = localStorage.getItem("cart");
+    if (savedCart) {
+      dispatch(setCart(JSON.parse(savedCart)));
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (cart?.data?.length > 0) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+  }, [cart]);
 
   const handleIncrement = () => {
     dispatch(incrementQuantity(itemData?.id));

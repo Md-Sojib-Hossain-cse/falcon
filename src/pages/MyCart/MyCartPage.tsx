@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import toast from "react-hot-toast";
 import {
   allSelectedItemRemoveFromCart,
   calculateTotalPrice,
   selectCart,
   selectTotalProducts,
+  setCart,
 } from "../../redux/features/cart/cart.Slice";
 import {
   removeAllSelection,
@@ -13,17 +15,31 @@ import {
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import CartItems from "./MyCartComponents/CartItems";
 import OrderSummery from "./MyCartComponents/OrderSummery";
+import { useEffect } from "react";
 
 const MyCartPage = () => {
   const cartItemCount = useAppSelector(selectTotalProducts);
   const cartData = useAppSelector(selectCart);
   const dispatch = useAppDispatch();
   const selectorStates = useAppSelector(selectSelector);
+  const cart = useAppSelector(selectCart);
+
+  useEffect(() => {
+    const storedCart = localStorage.getItem("cart");
+    if (storedCart) {
+      dispatch(setCart(JSON.parse(storedCart)));
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   const handleClearAll = () => {
     dispatch(allSelectedItemRemoveFromCart(selectorStates));
     dispatch(removeAllSelection());
     dispatch(calculateTotalPrice());
+    toast.success("All selected items removed from cart.");
   };
 
   return (

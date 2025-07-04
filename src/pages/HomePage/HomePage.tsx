@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link } from "react-router";
 import { useGetProductsQuery } from "../../redux/api/baseApi";
+import { useEffect } from "react";
+import { useAppDispatch } from "../../redux/hook";
+import { setCart } from "../../redux/features/cart/cart.Slice";
 
 const HomePage = () => {
   const { isLoading, isError, data } = useGetProductsQuery(undefined, {
@@ -9,6 +12,14 @@ const HomePage = () => {
     refetchOnMountOrArgChange: true,
     refetchOnReconnect: true,
   });
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const localCardData = localStorage.getItem("cart");
+    if (localCardData) {
+      dispatch(setCart(JSON.parse(localCardData)));
+    }
+  }, [dispatch]);
 
   if (isLoading)
     return (
